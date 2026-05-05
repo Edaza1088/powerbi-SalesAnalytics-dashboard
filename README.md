@@ -1,5 +1,14 @@
 # 📊 Power BI Sales Analytics Dashboard
 
+## 🚀 Business Overview
+
+Dashboard de análisis de ventas diseñado para monitorear el desempeño comercial, detectar tendencias y segmentar clientes estratégicos.
+
+🔎 Permite responder preguntas clave como:
+- ¿Estamos creciendo respecto al año anterior?
+- ¿Qué clientes generan la mayor parte de los ingresos?
+- ¿Qué categorías impulsan las ventas?
+
 ## 📌 Descripción
 
 Este proyecto consiste en el desarrollo de un dashboard de Business Intelligence en Power BI orientado al análisis de ventas. El objetivo es simular un escenario real de negocio donde se analizan indicadores clave (KPIs), tendencias y segmentación de clientes para la toma de decisiones.
@@ -194,9 +203,20 @@ SWITCH(
 
 ## 📌 Insights Clave
 
-* Un pequeño grupo de clientes (A) concentra la mayor parte de las ventas
-* El crecimiento se analiza comparando periodos equivalentes (MTD vs MTD LY)
-* La segmentación permite priorizar estrategias comerciales
+- El segmento A representa aproximadamente el 70–80% de las ventas totales
+- Se detecta una ligera caída en el desempeño mensual (~1%), lo que puede indicar estacionalidad o disminución en demanda
+- La categoría Tecnología lidera la participación en ingresos, siendo clave para estrategias comerciales
+
+---
+
+## 💼 Business Impact
+
+Este dashboard permite:
+
+- Priorizar clientes de alto valor (segmento A)
+- Monitorear el crecimiento mensual y detectar desviaciones
+- Identificar oportunidades en categorías con mayor contribución
+- Apoyar la toma de decisiones comerciales basadas en datos
 
 ---
 
@@ -217,14 +237,23 @@ SWITCH(
 
 ---
 
+## ▶️ Cómo usar el dashboard
+
+- Selecciona el año desde el slicer para analizar periodos específicos
+- Filtra por ciudad para analizar comportamiento regional
+- Explora la segmentación ABC para identificar clientes clave
+
+---
+
 ## 📷 Vista del dashboard
 
-![reports/powerbi](reports/image/dashboard1.png)
-![reports/powerbi](reports/image/dashboard2.png)
-![reports/powerbi](reports/image/dashboard3.png)
+![Resumen Ejecutivo](reports/image/dashboard1.png)
+![Análisis Comercial](reports/image/dashboard2.png)
+![Segmentación ABC](reports/image/dashboard3.png)
 
 ---
 ## 📎 Autor
 
 Edgar Daza
+
 Proyecto desarrollado como práctica de Business Intelligence orientada a portafolio profesional.
