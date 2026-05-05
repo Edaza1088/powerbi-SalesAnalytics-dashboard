@@ -249,7 +249,7 @@ Este dashboard permite:
 
 ![Resumen Ejecutivo](reports/image/dashboard1.png)
 ![Análisis Comercial](reports/image/dashboard2.png)
-![Segmentación ABC](reports/image/dashboard3.png)
+![Segmentación ABC](reports/image/dashboard3_v2.png)
 
 ---
 ## 📎 Autor
