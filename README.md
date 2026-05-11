@@ -1,259 +1,191 @@
-# 📊 Power BI Sales Analytics Dashboard
+Sales Analytics Dashboard – Power BI
+📊 Solución de Business Intelligence para análisis comercial y toma de decisiones
 
-## 🚀 Business Overview
+Dashboard interactivo desarrollado en Power BI para el análisis de ventas, rendimiento comercial, segmentación de clientes y monitoreo de indicadores estratégicos.
 
-Dashboard de análisis de ventas diseñado para monitorear el desempeño comercial, detectar tendencias y segmentar clientes estratégicos.
+La solución transforma datos transaccionales en información accionable mediante visualizaciones interactivas, KPIs dinámicos, análisis Pareto y segmentación ABC.
+
+🚀 Descripción del proyecto
+
+Muchas organizaciones gestionan sus ventas mediante archivos Excel o reportes dispersos, dificultando:
+
+El monitoreo del rendimiento comercial
+La identificación de productos y clientes estratégicos
+El análisis de tendencias de ventas
+La evaluación del desempeño de vendedores
+La toma de decisiones basada en datos
 
-🔎 Permite responder preguntas clave como:
-- ¿Estamos creciendo respecto al año anterior?
-- ¿Qué clientes generan la mayor parte de los ingresos?
-- ¿Qué categorías impulsan las ventas?
+Este proyecto presenta una solución de Business Intelligence orientada a:
 
-## 📌 Descripción
-
-Este proyecto consiste en el desarrollo de un dashboard de Business Intelligence en Power BI orientado al análisis de ventas. El objetivo es simular un escenario real de negocio donde se analizan indicadores clave (KPIs), tendencias y segmentación de clientes para la toma de decisiones.
-
-El dashboard permite evaluar el desempeño comercial, identificar patrones de comportamiento y priorizar clientes estratégicos mediante técnicas como análisis temporal y segmentación ABC.
-
----
-
-## 🎯 Objetivos del Proyecto
-
-* Analizar el comportamiento de ventas en el tiempo
-* Comparar desempeño actual vs año anterior
-* Identificar clientes y segmentos clave
-* Aplicar técnicas de análisis como acumulados y Pareto (ABC)
-* Construir un dashboard claro y orientado a negocio
-
----
-
-## 🧱 Modelo de Datos
-
-El modelo sigue un enfoque tipo estrella:
-
-* **ventas**: transacciones (cantidad, precio_unitario, fecha)
-* **clientes**: información de clientes (nombre, ciudad, región)
-* **calendario**: dimensión de fechas
-* **productos / categorías**: clasificación de ventas
-
-Relaciones principales:
-
-* ventas → clientes
-* ventas → calendario
-* ventas → productos
-
----
-
-## 📊 KPIs Implementados
-
-### 🔹 Total Ventas
-
-Cálculo del total de ingresos:
-
-```DAX
-Total Ventas =
-SUMX(
-    ventas,
-    ventas[cantidad] * ventas[precio_unitario]
-)
-```
-
----
-
-### 🔹 Ventas Mes Actual (MTD)
-
-```DAX
-Ventas Mes Actual =
-CALCULATE(
-    [Total Ventas],
-    DATESMTD(calendario[fecha])
-)
-```
-
----
-
-### 🔹 Ventas Mes Año Anterior
-
-```DAX
-Ventas Mes LY =
-CALCULATE(
-    [Total Ventas],
-    DATESMTD(
-        SAMEPERIODLASTYEAR(calendario[fecha])
-    )
-)
-```
-
----
-
-### 🔹 Crecimiento (%)
-
-```DAX
-Crecimiento Mes % =
-VAR Actual = [Ventas Mes Actual]
-VAR Anterior = [Ventas Mes LY]
-RETURN
-IF(
-    ISBLANK(Anterior),
-    BLANK(),
-    DIVIDE(Actual - Anterior, Anterior)
-)
-```
-
----
-
-### 🔹 Ticket Promedio
-
-```DAX
-Ticket Promedio =
-DIVIDE([Total Ventas], COUNTROWS(ventas))
-```
-
----
-
-## 🧠 Texto Dinámico (Insight automático)
-
-```DAX
-Texto KPI Crecimiento =
-VAR Crecimiento = [Crecimiento Mes %]
-VAR TextoPorcentaje = FORMAT(Crecimiento, "0.00%")
-VAR Ciudad = SELECTEDVALUE(clientes[ciudad], "todas las ciudades")
-VAR AnioSelect = SELECTEDVALUE(calendario[año])
-RETURN
-SWITCH(
-    TRUE(),
-    ISBLANK(Crecimiento),
-        "No hay datos suficientes para comparar.",
-    Crecimiento > 0,
-        "En " & AnioSelect & ", en " & Ciudad & ", las ventas del mes actual crecieron " & TextoPorcentaje &
-        " respecto al mismo período del año anterior.",
-    Crecimiento < 0,
-        "En " & AnioSelect & ", en " & Ciudad & ", las ventas del mes actual disminuyeron " & TextoPorcentaje &
-        " respecto al mismo período del año anterior.",
-    "Las ventas se mantienen iguales respecto al año anterior."
-)
-```
-
----
-
-## 📈 Segmentación ABC de Clientes
-
-### 🔹 % Acumulado
-
-```DAX
-% Acumulado Clientes =
-VAR TotalGeneral =
-    CALCULATE([Total Ventas], ALL(clientes))
-VAR TablaBase =
-    ADDCOLUMNS(
-        ALL(clientes[nombre]),
-        "Ventas", [Total Ventas]
-    )
-VAR VentasActual = [Total Ventas]
-VAR VentasAcumuladas =
-    SUMX(
-        FILTER(
-            TablaBase,
-            [Ventas] >= VentasActual
-        ),
-        [Ventas]
-    )
-RETURN
-DIVIDE(VentasAcumuladas, TotalGeneral)
-```
-
----
-
-### 🔹 Clasificación ABC
-
-```DAX
-Clasificación ABC =
-SWITCH(
-    TRUE(),
-    [% Acumulado Clientes] <= 0.8, "A",
-    [% Acumulado Clientes] <= 0.95, "B",
-    "C"
-)
-```
-
----
-
-## 📊 Visualizaciones Incluidas
-
-### 🟢 Página 1: Resumen Ejecutivo
-
-* KPIs principales
-* Texto dinámico (insight)
-* Ventas vs año anterior
-* Ventas por categoría
-
-### 🔵 Página 2: Análisis Comercial
-
-* Ventas por vendedor
-* Contribución por cliente
-* Ventas por región
-
-### 🟣 Página 3: Análisis de Clientes
-
-* Segmentación ABC
-* Gráfico Pareto
-* Ranking de clientes
-
----
-
-## 📌 Insights Clave
-
-- El segmento A representa aproximadamente el 70–80% de las ventas totales
-- Se detecta una ligera caída en el desempeño mensual (~1%), lo que puede indicar estacionalidad o disminución en demanda
-- La categoría Tecnología lidera la participación en ingresos, siendo clave para estrategias comerciales
-
----
-
-## 💼 Business Impact
-
-Este dashboard permite:
-
-- Priorizar clientes de alto valor (segmento A)
-- Monitorear el crecimiento mensual y detectar desviaciones
-- Identificar oportunidades en categorías con mayor contribución
-- Apoyar la toma de decisiones comerciales basadas en datos
-
----
-
-## 🛠 Herramientas Utilizadas
-
-* Power BI
-* DAX (Data Analysis Expressions)
-* Modelado de datos
-
----
-
-## 🚀 Posibles Mejoras
-
-* Implementar métricas YTD
-* Añadir segmentación por productos
-* Integrar forecasting
-* Optimizar UX/UI del dashboard
-
----
-
-## ▶️ Cómo usar el dashboard
-
-- Selecciona el año desde el slicer para analizar periodos específicos
-- Filtra por ciudad para analizar comportamiento regional
-- Explora la segmentación ABC para identificar clientes clave
+✔ Monitoreo de ingresos
+✔ Análisis comercial
+✔ Segmentación de clientes
+✔ Análisis Pareto
+✔ Comparación interanual de ventas
+✔ Evaluación de desempeño regional y comercial
+
+🧩 Estructura del Dashboard
+
+La solución está compuesta por tres páginas analíticas:
+
+1️⃣ Resumen Ejecutivo
+
+Dashboard ejecutivo diseñado para monitoreo rápido del negocio.
+
+Funcionalidades
+KPI de ventas totales
+Ventas del mes actual
+Porcentaje de crecimiento
+Ticket promedio
+Insight dinámico automatizado
+Comparación ventas vs año anterior
+Ventas por categoría
+Filtros interactivos por año y ciudad
+Objetivo
+
+Brindar una visión ejecutiva inmediata del comportamiento comercial.
+
+2️⃣ Análisis Comercial
+
+Página enfocada en el rendimiento del equipo comercial y análisis regional.
+
+Funcionalidades
+Identificación del mejor vendedor
+Ranking comercial
+Participación porcentual de ventas
+Comparación de ventas por región
+Filtro dinámico por categoría
+Indicadores comerciales interactivos
+Objetivo
+
+Detectar oportunidades comerciales y evaluar el desempeño del equipo de ventas.
+
+3️⃣ Análisis ABC y Pareto de Clientes
+
+Análisis avanzado de clientes mediante metodología Pareto y clasificación ABC.
+
+Funcionalidades
+Clasificación ABC de clientes
+Análisis acumulado de ventas
+Gráfico Pareto
+Identificación de clientes estratégicos
+Insights dinámicos comerciales
+Objetivo
+
+Priorizar clientes clave y optimizar estrategias comerciales.
+
+📈 KPIs implementados
+Total Ventas
+Ventas Mes Actual
+Crecimiento %
+Ticket Promedio
+Top Vendedor
+Participación porcentual de ventas
+Clasificación ABC
+Porcentaje acumulado de clientes
+🧠 Medidas DAX implementadas
+
+El proyecto incluye medidas avanzadas desarrolladas en DAX:
+
+Time Intelligence
+Ranking dinámico
+Cálculos acumulados Pareto
+Segmentación ABC
+KPIs narrativos dinámicos
+Formato condicional
+Interacciones analíticas
+🏗 Modelo de datos
+
+El dashboard fue construido bajo una arquitectura tipo Star Schema, optimizando rendimiento y escalabilidad analítica.
+
+Tabla de hechos
+ventas
+Tablas dimensionales
+clientes
+productos
+vendedores
+calendario
+Beneficios del modelo
+
+✔ Mejor rendimiento
+✔ Escalabilidad
+✔ Filtrado eficiente
+✔ Flexibilidad analítica
+
+🎨 Mejoras visuales implementadas
+
+El dashboard fue rediseñado siguiendo principios modernos de UX/UI para Business Intelligence:
+
+Diseño ejecutivo
+KPIs profesionales
+Tooltips personalizados
+Interacciones dinámicas
+Paleta visual corporativa
+Mejor distribución visual
+Storytelling analítico
+🛠 Tecnologías utilizadas
+Power BI Desktop
+DAX
+Power Query
+Modelado de datos
+Time Intelligence
+📸 Vista previa del dashboard
+Resumen Ejecutivo
+
+Análisis Comercial
+
+Análisis ABC y Pareto
+
+📂 Estructura del repositorio
+powerbi-SalesAnalytics-dashboard/
+│
+├── data/
+│   └── ventas_dashboard.csv
+│
+├── reports/
+│   ├── dashboard.pbix
+│   └── image/
+│       ├── dashboard1.png
+│       ├── dashboard2.png
+│       └── dashboard3.png
+│
+└── README.md
+🎯 Aplicabilidad
+
+Este tipo de solución puede adaptarse a:
+
+Empresas comerciales
+Retail
+Distribuidores
+Departamentos de ventas
+PYMES
+Empresas que trabajan con Excel
+💡 Posibles mejoras futuras
+Forecasting de ventas
+Dashboards móviles
+Automatización de actualización
+Seguridad por roles (RLS)
+KPIs predictivos
+Drill-through avanzado
+⭐ Aspectos destacados
+
+✔ Dashboard ejecutivo profesional
+✔ Business Intelligence interactivo
+✔ DAX avanzado
+✔ Storytelling analítico
+✔ Segmentación ABC y Pareto
+✔ Diseño orientado a negocio segmentación ABC para identificar clientes clave
 
 ---
 
 ## 📷 Vista del dashboard
 
-![Resumen Ejecutivo](reports/image/dashboard1.png)
-![Análisis Comercial](reports/image/dashboard2.png)
-![Segmentación ABC](reports/image/dashboard3_v2.png)
+![Resumen Ejecutivo](reports/image/dashboard1_v2.png)
+![Análisis Comercial](reports/image/dashboard2_v2.png)
+![Segmentación ABC](reports/image/dashboard3_v3.png)
 
 ---
 ## 📎 Autor
 
 Edgar Daza
 
-Proyecto desarrollado como práctica de Business Intelligence orientada a portafolio profesional.
