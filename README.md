@@ -172,19 +172,21 @@ El dashboard fue rediseñado siguiendo principios modernos de UX/UI para Busines
 
 ## Resumen Ejecutivo
 
-![Resumen Ejecutivo](reports/image/dashboard1.png)
+![Resumen Ejecutivo](reports/image/dashboard1_v2.png)
+
+
 
 ---
 
 ## Análisis Comercial
 
-![Análisis Comercial](reports/image/dashboard2.png)
+![Análisis Comercial](reports/image/dashboard2_v2.png)
 
 ---
 
 ## Análisis ABC y Pareto
 
-![Análisis ABC](reports/image/dashboard3.png)
+![Análisis ABC](reports/image/dashboard3_v3.png)
 
 ---
 
@@ -241,11 +243,7 @@ Este tipo de solución puede adaptarse a:
 - Segmentación ABC y Pareto
 - Diseño orientado a negocio
 
-## 📷 Vista del dashboard
 
-![Resumen Ejecutivo](reports/image/dashboard1_v2.png)
-![Análisis Comercial](reports/image/dashboard2_v2.png)
-![Segmentación ABC](reports/image/dashboard3_v3.png)
 
 ---
 ## 📎 Autor
