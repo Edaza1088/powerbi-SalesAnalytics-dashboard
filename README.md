@@ -190,7 +190,7 @@ El dashboard fue rediseñado siguiendo principios modernos de UX/UI para Busines
 
 # 🎥 Demo del Dashboard
 
-[Ver demostración del dashboard](https://youtu.be/F69u8eSWKCE)
+[Ver demostración del dashboard](https://youtu.be/bMJLAxMjVCQ)
 
 ---
 
