@@ -1,3 +1,5 @@
+![Banner](reports/image/banner.png)
+
 # Sales Analytics Dashboard – Power BI
 
 ## 📊 Solución de Business Intelligence para análisis comercial y toma de decisiones
