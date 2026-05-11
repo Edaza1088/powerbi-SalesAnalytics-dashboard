@@ -176,8 +176,6 @@ El dashboard fue rediseñado siguiendo principios modernos de UX/UI para Busines
 
 ![Resumen Ejecutivo](reports/image/dashboard1_v2.png)
 
-
-
 ---
 
 ## Análisis Comercial
@@ -189,6 +187,10 @@ El dashboard fue rediseñado siguiendo principios modernos de UX/UI para Busines
 ## Análisis ABC y Pareto
 
 ![Análisis ABC](reports/image/dashboard3_v3.png)
+
+# 🎥 Demo del Dashboard
+
+[Ver demostración del dashboard](https://youtu.be/F69u8eSWKCE)
 
 ---
 
